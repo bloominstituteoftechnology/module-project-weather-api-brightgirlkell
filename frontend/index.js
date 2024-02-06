@@ -19,9 +19,9 @@ async function moduleProject4() {
   document.querySelector('#citySelect').addEventListener('change', async evt =>{
     console.log('selection changed')
     try{
-      evt.target.setAttribute('disabled', 'diabled')
-      document.querySelector('weatherWidget').style.display= 'none'
-      document.querySelector('.info').textContent = 'Fetching weather data...'
+      document.querySelector('#citySelect').setAttribute('disabled', 'diabled')
+      document.querySelector('#weatherWidget').style.display= 'none'
+      document.querySelector('.info').textContent='Fetching weather data...'
 
       console.log(evt.target.value)
       let city= evt.target.value
@@ -38,7 +38,7 @@ async function moduleProject4() {
       document.querySelector('#apparentTemp div:nth-child(2)')
          .textContent= `${data.current.apparent_temperature}°`
       document.querySelector('#todayDescription')
-        .textContent = descriptions.find(d=> d[0] === data.current.weather.description)[1]
+        .textContent = descriptions.find(d=> d[0] === data.current.weather_description)[1]
     document.querySelector('#todayStats div:nth-child(1)')
         .textContent= `${data.current.temperature_min}°/${data.current.temperature_max}°`
     document.querySelector('#todayStats div:nth-child(2)')
@@ -52,17 +52,17 @@ async function moduleProject4() {
           let card= document.querySelectorAll('.next-day')[idx]
 
           let weekDay=card.children[0]
-          let apparent= card.children[1]
-          let minMax= card.children[2]
-          let precipit = card.children[3]
+          let apparent=card.children[1]
+          let minMax=card.children[2]
+          let precipit=card.children[3]
 
-          weekDay.textContent= getWeekDay(day.date)
+          weekDay.textContent=getWeekDay(day.date)
           apparent.textContent=descriptions.find(d => d[0]=== day.weather_discription)[1]
           minMax.textContent = `${day.temperature_min}°/${day.temperature_max}°`
           precipit.textContent+ `Precipitation: ${day.precipitation_probability * 100}%`
         })
          
-
+     document.querySelector('#location').firstElementChild.textContent= data.location.city
     } catch (err){
       console.log('Promise rejected with an err .message -->', err.message)
     }
